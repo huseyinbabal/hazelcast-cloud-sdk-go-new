@@ -35,7 +35,7 @@ func TestInstanceTypeServiceOp_List(t *testing.T) {
 	client, _, _ := NewFromCredentials("apiKey", "apiSecret", OptionEndpoint(server.URL))
 
 	//when
-	instanceTypes, _, _ := NewInstanceTypeService(client).List(context.TODO(), &models.InstanceTypeRequest{})
+	instanceTypes, _, _ := NewInstanceTypeService(client).List(context.TODO(), &models.InstanceTypeInput{})
 
 	//then
 	assert.Len(t, *instanceTypes, 11)
@@ -43,7 +43,7 @@ func TestInstanceTypeServiceOp_List(t *testing.T) {
 
 func ExampleInstanceTypeService_list() {
 	client, _, _ := New()
-	instanceTypes, _, _ := client.InstanceType.List(context.Background(), &models.InstanceTypeRequest{CloudProvider: "aws"})
+	instanceTypes, _, _ := client.InstanceType.List(context.Background(), &models.InstanceTypeInput{CloudProvider: "aws"})
 	fmt.Printf("Result: %#v", instanceTypes)
 	//Output:Result: &[]models.InstanceType{models.InstanceType{Name:"r5.4xlarge", TotalMemory:127}, models.InstanceType{Name:"r5.2xlarge", TotalMemory:63}, models.InstanceType{Name:"r5a.2xlarge", TotalMemory:63}, models.InstanceType{Name:"m5.large", TotalMemory:7}, models.InstanceType{Name:"m5.xlarge", TotalMemory:15}, models.InstanceType{Name:"r5a.xlarge", TotalMemory:31}, models.InstanceType{Name:"m5.4xlarge", TotalMemory:63}, models.InstanceType{Name:"r5.xlarge", TotalMemory:31}, models.InstanceType{Name:"r5a.4xlarge", TotalMemory:127}, models.InstanceType{Name:"r5.large", TotalMemory:15}, models.InstanceType{Name:"m5.2xlarge", TotalMemory:31}}
 }

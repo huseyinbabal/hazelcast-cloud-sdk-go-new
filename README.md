@@ -56,7 +56,7 @@ Also, you can use [`hazelcastcloud.New()`](https://github.com/hazelcast/hazelcas
 
 ```go
 clusterName := "my-awesome-cluster"
-createRequest := models.CreateStarterClusterInput{
+createInput := models.CreateStarterClusterInput{
   Name:             clusterName,
   CloudProvider:    "aws",
   Region:           "us-west-2",
@@ -65,7 +65,7 @@ createRequest := models.CreateStarterClusterInput{
   TotalMemory:      0.2,
 }
 
-newCluster, _, createErr := client.StarterCluster.Create(context.Background(), &createRequest)
+newCluster, _, createErr := client.StarterCluster.Create(context.Background(), &createInput)
 if createErr != nil {
   fmt.Printf("An error occurred: %s\n\n", createErr)
   return

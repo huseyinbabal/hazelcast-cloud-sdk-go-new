@@ -7,7 +7,7 @@ import (
 
 //This AuthService is used to make authorization operations
 type AuthService interface {
-	Login(ctx context.Context, request *models.LoginInput) (*models.LoginResponse, *Response, error)
+	Login(ctx context.Context, input *models.LoginInput) (*models.Login, *Response, error)
 }
 
 type authServiceOp struct {
@@ -18,25 +18,24 @@ func NewAuthService(client *Client) AuthService {
 	return &authServiceOp{client: client}
 }
 
-//This function logins you with apiKey and apiSecret in request and returns token in the response
-func (s authServiceOp) Login(ctx context.Context, request *models.LoginInput) (*models.LoginResponse, *Response, error) {
-	//noinspection GoPreferNilSlice
-	var loginResponse = models.LoginResponse{}
+//This function logins you with apiKey and apiSecret in input and returns token in the response
+func (s authServiceOp) Login(ctx context.Context, input *models.LoginInput) (*models.Login, *Response, error) {
+	var login models.Login
 	var graphqlRequest = models.GraphqlRequest{
 		Name:      "login",
 		Operation: models.Mutation,
-		Args:      *request,
-		Response:  loginResponse,
+		Args:      *input,
+		Response:  login,
 	}
 	req, err := s.client.NewRequest(&graphqlRequest)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	resp, err := s.client.Do(ctx, req, &loginResponse)
+	resp, err := s.client.Do(ctx, req, &login)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return &loginResponse, resp, err
+	return &login, resp, err
 }

@@ -1,4 +1,4 @@
-package to
+package graphql
 
 import (
 	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
@@ -10,7 +10,7 @@ func TestQuery_When_Args_And_Input_Are_Not_Nil(t *testing.T) {
 	//given
 	name := "queryName"
 	query := models.Query
-	response := models.ClusterIdResponse{}
+	response := models.ClusterId{}
 	//when
 	queryString := Query(name, query, nil, nil, response)
 
@@ -23,7 +23,7 @@ func TestQuery_When_Args_Is_Not_Nil(t *testing.T) {
 	name := "queryName"
 	query := models.Query
 	args := models.GetStarterClusterInput{ClusterId: "123456"}
-	response := models.ClusterIdResponse{}
+	response := models.ClusterId{}
 
 	//when
 	queryString := Query(name, query, nil, args, response)
@@ -37,7 +37,7 @@ func TestQuery_When_Input_Is_Not_Nil(t *testing.T) {
 	name := "queryName"
 	query := models.Query
 	input := models.GetStarterClusterInput{ClusterId: "123456"}
-	response := models.ClusterIdResponse{}
+	response := models.ClusterId{}
 
 	//when
 	queryString := Query(name, query, input, nil, response)
@@ -102,10 +102,10 @@ func TestVariables_When_Input_Is_Not_Unmarshall(t *testing.T) {
 
 func TestGraphqlResponseSelector_For_Struct(t *testing.T) {
 	//given
-	response := models.ClusterResponse{}
+	response := models.Cluster{}
 
 	//when
-	selector := GraphqlResponseSelector(response)
+	selector := Response(response)
 
 	//then
 	assert.Equal(t,
@@ -115,10 +115,10 @@ func TestGraphqlResponseSelector_For_Struct(t *testing.T) {
 
 func TestGraphqlResponseSelector_For_Slice(t *testing.T) {
 	//given
-	var response []models.ClusterResponse
+	var response []models.Cluster
 
 	//when
-	selector := GraphqlResponseSelector(response)
+	selector := Response(response)
 
 	//then
 	assert.Equal(t,

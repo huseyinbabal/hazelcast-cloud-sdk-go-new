@@ -1,7 +1,7 @@
 package models
 
-//Type of region request
-type RegionRequest struct {
+//Type of region input
+type RegionInput struct {
 	CloudProvider string `json:"cloudProvider"`
 }
 

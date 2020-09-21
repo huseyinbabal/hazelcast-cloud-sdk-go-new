@@ -1,7 +1,7 @@
 package models
 
-//Type of availability zone request
-type AvailabilityZoneRequest struct {
+//Type of availability zone input
+type AvailabilityZoneInput struct {
 	CloudProvider string `json:"cloudProvider"`
 	Region        string `json:"region"`
 	InstanceType  string `json:"instanceType"`

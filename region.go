@@ -7,7 +7,7 @@ import (
 
 //This RegionService is used to make operations related with regions
 type RegionService interface {
-	List(ctx context.Context, request *models.RegionRequest) (*[]models.Region, *Response, error)
+	List(ctx context.Context, input *models.RegionInput) (*[]models.Region, *Response, error)
 }
 
 type regionServiceOp struct {
@@ -19,25 +19,24 @@ func NewRegionService(client *Client) RegionService {
 }
 
 //This function returns a list of available regions
-func (c regionServiceOp) List(ctx context.Context, request *models.RegionRequest) (*[]models.Region, *Response, error) {
-	//noinspection GoPreferNilSlice
-	var regionListResponse = []models.Region{}
+func (c regionServiceOp) List(ctx context.Context, input *models.RegionInput) (*[]models.Region, *Response, error) {
+	var regionList []models.Region
 	graphqlRequest := models.GraphqlRequest{
 		Name:      "regions",
 		Operation: models.Query,
 		Input:     nil,
-		Args:      *request,
-		Response:  regionListResponse,
+		Args:      *input,
+		Response:  regionList,
 	}
 	req, err := c.client.NewRequest(&graphqlRequest)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	resp, err := c.client.Do(ctx, req, &regionListResponse)
+	resp, err := c.client.Do(ctx, req, &regionList)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return &regionListResponse, resp, err
+	return &regionList, resp, err
 }
