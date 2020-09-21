@@ -1,14 +1,15 @@
-on: ["push", "pull_request"]
+on: ["pull_request"]
 
-name: Test Coveralls
+name: Coverage
 
 jobs:
 
   build:
-    name: Build
+    name: Build, Test, Coverage
     runs-on: ubuntu-latest
     steps:
 
+    - name: Checkout
     - uses: actions/checkout@v1
 
     - name: Use Go 1.15.x
@@ -16,16 +17,19 @@ jobs:
       with:
         go-version: 1.15
 
-    - name: Calc coverage 
+    - name: Calculate Coverage 
       run: |
-        export PATH=$PATH:$(go env GOPATH)/bin   
+        export PATH=$PATH:$(go env GOPATH)/bin  
+        go mod download 
         go test ./... -v  -run="^Test" -covermode=count -coverprofile=coverage.out
-    - name: Convert coverage to lcov
+        
+    - name: Convert Coverage to Lcov
       uses: jandelgado/gcov2lcov-action@v1.0.0
       with:
           infile: coverage.out
           outfile: coverage.lcov
-    - name: Coveralls
+
+    - name: Publish Coverage Report
       uses: coverallsapp/github-action@v1.0.1
       with:
           github-token: ${{ secrets.github_token }}
