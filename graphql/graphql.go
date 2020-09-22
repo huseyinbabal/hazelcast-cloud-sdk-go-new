@@ -3,7 +3,7 @@ package graphql
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
+	"github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/models"
 	"reflect"
 	"strings"
 	"unicode"
@@ -46,7 +46,7 @@ func buildResponse(t reflect.Type, stringBuilder *strings.Builder) {
 	if kind == reflect.Slice {
 		buildResponse(t.Elem(), stringBuilder)
 	} else if kind == reflect.Struct {
-		fmt.Fprint(stringBuilder,"{")
+		fmt.Fprint(stringBuilder, "{")
 		for i := 0; i < t.NumField(); i++ {
 			if i != 0 {
 				fmt.Fprint(stringBuilder, ",")
@@ -55,7 +55,7 @@ func buildResponse(t reflect.Type, stringBuilder *strings.Builder) {
 			fmt.Fprint(stringBuilder, camelCase(f.Name))
 			buildResponse(f.Type, stringBuilder)
 		}
-		fmt.Fprint(stringBuilder,"}")
+		fmt.Fprint(stringBuilder, "}")
 	}
 }
 

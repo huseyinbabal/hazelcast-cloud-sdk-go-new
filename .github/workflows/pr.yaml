@@ -1,0 +1,42 @@
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - "asdasdasdasd"
+
+name: Coverage
+
+jobs:
+
+  build:
+    name: Build, Test, Coverage
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Use Go 1.15.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Calculate Coverage 
+      run: |
+        export PATH=$PATH:$(go env GOPATH)/bin  
+        go mod download 
+        go test ./... -v  -run="^Test" -covermode=count -coverprofile=coverage.out
+        
+    - name: Convert Coverage to Lcov
+      uses: jandelgado/gcov2lcov-action@v1.0.0
+      with:
+          infile: coverage.out
+          outfile: coverage.lcov
+
+    - name: Publish Coverage Report
+      uses: coverallsapp/github-action@v1.0.1
+      with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: coverage.lcov

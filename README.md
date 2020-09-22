@@ -1,7 +1,7 @@
 ## :construction: This SDK is still in active development and will be published soon!
 # Hazelcast Cloud SDK - Go
 
-[![GoDoc](https://godoc.org/github.com/hazelcast/hazelcast-cloud-go-sdk?status.svg)](https://pkg.go.dev/github.com/hazelcast/hazelcast-cloud-sdk-go)
+[![GoDoc](https://godoc.org/github.com/hazelcast/hazelcast-cloud-go-sdk?status.svg)](https://pkg.go.dev/github.com/huseyinbabal/hazelcast-cloud-sdk-go-new)
 
 Hazelcast Cloud is a client library to consume Public API easily.
 
@@ -9,10 +9,10 @@ You can view Hazelcast Cloud API references from here: [https://docs.cloud.hazel
 
 ## Install
 ```sh
-go get github.com/hazelcast/hazelcast-cloud-sdk-go@vX.Y.Z
+go get github.com/huseyinbabal/hazelcast-cloud-sdk-go-new@vX.Y.Z
 ```
 
-where X.Y.Z is the [version](https://github.com/hazelcast/hazelcast-cloud-sdk-go/releases) you need.
+where X.Y.Z is the [version](https://github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/releases) you need.
 
 or
 ```sh
@@ -49,7 +49,7 @@ func main() {
 }
 ```
 
-Also, you can use [`hazelcastcloud.New()`](https://github.com/hazelcast/hazelcast-cloud-sdk-go/blob/master/hazelcast_cloud.go#L113) to provider your API Key and API Secret from environment variables as `HZ_CLOUD_API_KEY` and `HZ_CLOUD_API_SECRET` 
+Also, you can use [`hazelcastcloud.New()`](https://github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/blob/master/hazelcast_cloud.go#L113) to provider your API Key and API Secret from environment variables as `HZ_CLOUD_API_KEY` and `HZ_CLOUD_API_SECRET` 
 
 ## :rocket: Examples
 - Create a new Starter Cluster:
@@ -74,16 +74,16 @@ if createErr != nil {
 
 ## 🏷️ Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/hazelcast/hazelcast-cloud-sdk-go/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/tags).
 
 ## ⭐️ Documentation
 
-For details on all the functionality in this library, see the [GoDoc](http://godoc.org/github.com/hazelcast/hazelcast-cloud-sdk-go) documentation. Also, you can refer [API References](https://docs.cloud.hazelcast.com/docs/api-reference) for Graphql queries and mutations to understand payloads.
+For details on all the functionality in this library, see the [GoDoc](http://godoc.org/github.com/huseyinbabal/hazelcast-cloud-sdk-go-new) documentation. Also, you can refer [API References](https://docs.cloud.hazelcast.com/docs/api-reference) for Graphql queries and mutations to understand payloads.
 
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/hazelcast/hazelcast-cloud-sdk-go/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/issues).
 
 
 ## 📝 License

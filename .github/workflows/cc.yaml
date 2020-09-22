@@ -1,0 +1,38 @@
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - "*"
+
+name: Coverage
+
+jobs:
+
+  build:
+    name: Build, Test, Coverage
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Use Go 1.15.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
+
+    - name: Download Dependencies 
+      run: |
+        export PATH=$PATH:$(go env GOPATH)/bin  
+        go mod download  
+        
+    - name: Test Coverage
+      uses: paambaati/codeclimate-action@v2.6.0
+      env:
+        CC_TEST_REPORTER_ID: 97e095d0f15e7fff33dfde343eb6455f5fcc4c826c97ebdb20ce0715ef17f41f
+      with:
+        coverageCommand: go test -coverprofile c.out -v ./... -run="^Test"
+        coverageLocations: ${{github.workspace}}/c.out:gocov
+        prefix: github.com/huseyinbabal/hazelcast-cloud-sdk-go-new

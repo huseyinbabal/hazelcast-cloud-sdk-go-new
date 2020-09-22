@@ -2,7 +2,7 @@ package hazelcastcloud
 
 import (
 	"context"
-	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
+	"github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/models"
 )
 
 //This RegionService is used to make operations related with regions
