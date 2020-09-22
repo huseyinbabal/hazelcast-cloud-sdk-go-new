@@ -35,3 +35,4 @@ jobs:
       with:
         coverageCommand: go test -coverprofile c.out -v ./... -run="^Test"
         coverageLocations: ${{github.workspace}}/c.out:gocov
+        prefix: github.com/huseyinbabal/hazelcast-cloud-sdk-go-new
