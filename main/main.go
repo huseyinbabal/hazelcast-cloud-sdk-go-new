@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	hazelcastcloud "github.com/hazelcast/hazelcast-cloud-sdk-go"
+	hazelcastcloud "github.com/huseyinbabal/hazelcast-cloud-sdk-go-new"
 )
 
 func main() {

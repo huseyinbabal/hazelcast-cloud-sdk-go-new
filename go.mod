@@ -1,4 +1,4 @@
-module github.com/hazelcast/hazelcast-cloud-sdk-go
+module github.com/huseyinbabal/hazelcast-cloud-sdk-go-new
 
 go 1.15
 

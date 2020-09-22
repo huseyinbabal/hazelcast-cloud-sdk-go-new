@@ -2,7 +2,7 @@ package hazelcastcloud
 
 import (
 	"context"
-	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
+	"github.com/huseyinbabal/hazelcast-cloud-sdk-go-new/models"
 )
 
 //This StarterClusterService is used to interact with Starter Clusters.
