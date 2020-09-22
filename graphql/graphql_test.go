@@ -15,7 +15,7 @@ func TestQuery_When_Args_And_Input_Are_Not_Nil(t *testing.T) {
 	queryString := Query(name, query, nil, nil, response)
 
 	//then
-	assert.Equal(t, "query{response:queryName{clusterId\n}}", queryString)
+	assert.Equal(t, "query{response:queryName{clusterId}}", queryString)
 }
 
 func TestQuery_When_Args_Is_Not_Nil(t *testing.T) {
@@ -29,7 +29,7 @@ func TestQuery_When_Args_Is_Not_Nil(t *testing.T) {
 	queryString := Query(name, query, nil, args, response)
 
 	//then
-	assert.Equal(t, "query{response:queryName(clusterId:\"123456\"){clusterId\n}}", queryString)
+	assert.Equal(t, "query{response:queryName(clusterId:\"123456\"){clusterId}}", queryString)
 }
 
 func TestQuery_When_Input_Is_Not_Nil(t *testing.T) {
@@ -43,7 +43,7 @@ func TestQuery_When_Input_Is_Not_Nil(t *testing.T) {
 	queryString := Query(name, query, input, nil, response)
 
 	//then
-	assert.Equal(t, "query($input:GetStarterClusterInput){response:queryName(input:$input){clusterId\n}}", queryString)
+	assert.Equal(t, "query($input:GetStarterClusterInput){response:queryName(input:$input){clusterId}}", queryString)
 }
 
 func TestArguments(t *testing.T) {
@@ -55,7 +55,7 @@ func TestArguments(t *testing.T) {
 	}
 
 	//when
-	arguments := Arguments(test)
+	arguments := argumentsBuilder(test)
 
 	//then
 	assert.Equal(t, "name:\"name\",size:10,enabled:%!s(bool=false)", arguments)
@@ -105,11 +105,11 @@ func TestGraphqlResponseSelector_For_Struct(t *testing.T) {
 	response := models.Cluster{}
 
 	//when
-	selector := Response(response)
+	selector := responseBuilder(response)
 
 	//then
 	assert.Equal(t,
-		"id\ncustomerId\nname\npassword\nport\nhazelcastVersion\nisAutoScalingEnabled\nisHotBackupEnabled\nisHotRestartEnabled\nisIpWhitelistEnabled\nisTlsEnabled\nproductType {\nname\nisFree\n}\nstate\ncreatedAt\nstartedAt\nstoppedAt\nprogress {\nstatus\ntotalItemCount\ncompletedItemCount\n}\ncloudProvider {\nname\nregion\navailabilityZones}\ndiscoveryTokens {\nsource\ntoken\n}\nspecs {\ntotalMemory\nheapMemory\nnativeMemory\ncpu\ninstanceType\ninstancePerZone\n}\nnetworking {\ntype\ncidrBlock\npeering {\nisEnabled\n}\nprivateLink {\nurl\nstate\n}\n}\ndataStructures {\nmapConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nevictionPolicy\nisReady\nmapIndices {\nid\nname\n}\nmapStore {\nclassName\nwriteBatchSize\nwriteCoalescing\ninitialLoadMode\nwriteDelaySeconds\n}\nmaxIdleSeconds\nmaxSize\nmaxSizePolicy\nttlSeconds\n}\njCacheConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nevictionPolicy\nisReady\nkeyType\nmaxSize\nmaxSizePolicy\nttlSeconds\nvalueType\n}\nreplicatedMapConfigs {\nid\nname\nisReady\nasyncFillUp\ninMemoryFormat\n}\nqueueConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nemptyQueueTtl\nisReady\nmaxSize\n}\nsetConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nmaxSize\n}\nlistConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nmaxSize\n}\ntopicConfigs {\nid\nname\nglobalOrdering\nisReady\n}\nmultiMapConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nvalueCollectionType\n}\nringBufferConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\ncapacity\ninMemoryFormat\nttlSeconds\n}\nreliableTopicConfigs {\nid\nname\nisReady\nreadBatchSize\ntopicOverloadPolicy\n}\n}\n",
+		"{id,customerId,name,password,port,hazelcastVersion,isAutoScalingEnabled,isHotBackupEnabled,isHotRestartEnabled,isIpWhitelistEnabled,isTlsEnabled,productType{name,isFree},state,createdAt,startedAt,stoppedAt,progress{status,totalItemCount,completedItemCount},cloudProvider{name,region,availabilityZones},discoveryTokens{source,token},specs{totalMemory,heapMemory,nativeMemory,cpu,instanceType,instancePerZone},networking{type,cidrBlock,peering{isEnabled},privateLink{url,state}},dataStructures{mapConfigs{id,name,asyncBackupCount,backupCount,evictionPolicy,isReady,mapIndices{id,name},mapStore{className,writeBatchSize,writeCoalescing,initialLoadMode,writeDelaySeconds},maxIdleSeconds,maxSize,maxSizePolicy,ttlSeconds},jCacheConfigs{id,name,asyncBackupCount,backupCount,evictionPolicy,isReady,keyType,maxSize,maxSizePolicy,ttlSeconds,valueType},replicatedMapConfigs{id,name,isReady,asyncFillUp,inMemoryFormat},queueConfigs{id,name,asyncBackupCount,backupCount,emptyQueueTtl,isReady,maxSize},setConfigs{id,name,asyncBackupCount,backupCount,isReady,maxSize},listConfigs{id,name,asyncBackupCount,backupCount,isReady,maxSize},topicConfigs{id,name,globalOrdering,isReady},multiMapConfigs{id,name,asyncBackupCount,backupCount,isReady,valueCollectionType},ringBufferConfigs{id,name,asyncBackupCount,backupCount,isReady,capacity,inMemoryFormat,ttlSeconds},reliableTopicConfigs{id,name,isReady,readBatchSize,topicOverloadPolicy}}}",
 		selector)
 }
 
@@ -118,11 +118,11 @@ func TestGraphqlResponseSelector_For_Slice(t *testing.T) {
 	var response []models.Cluster
 
 	//when
-	selector := Response(response)
+	selector := responseBuilder(response)
 
 	//then
 	assert.Equal(t,
-		"id\ncustomerId\nname\npassword\nport\nhazelcastVersion\nisAutoScalingEnabled\nisHotBackupEnabled\nisHotRestartEnabled\nisIpWhitelistEnabled\nisTlsEnabled\nproductType {\nname\nisFree\n}\nstate\ncreatedAt\nstartedAt\nstoppedAt\nprogress {\nstatus\ntotalItemCount\ncompletedItemCount\n}\ncloudProvider {\nname\nregion\navailabilityZones}\ndiscoveryTokens {\nsource\ntoken\n}\nspecs {\ntotalMemory\nheapMemory\nnativeMemory\ncpu\ninstanceType\ninstancePerZone\n}\nnetworking {\ntype\ncidrBlock\npeering {\nisEnabled\n}\nprivateLink {\nurl\nstate\n}\n}\ndataStructures {\nmapConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nevictionPolicy\nisReady\nmapIndices {\nid\nname\n}\nmapStore {\nclassName\nwriteBatchSize\nwriteCoalescing\ninitialLoadMode\nwriteDelaySeconds\n}\nmaxIdleSeconds\nmaxSize\nmaxSizePolicy\nttlSeconds\n}\njCacheConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nevictionPolicy\nisReady\nkeyType\nmaxSize\nmaxSizePolicy\nttlSeconds\nvalueType\n}\nreplicatedMapConfigs {\nid\nname\nisReady\nasyncFillUp\ninMemoryFormat\n}\nqueueConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nemptyQueueTtl\nisReady\nmaxSize\n}\nsetConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nmaxSize\n}\nlistConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nmaxSize\n}\ntopicConfigs {\nid\nname\nglobalOrdering\nisReady\n}\nmultiMapConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\nvalueCollectionType\n}\nringBufferConfigs {\nid\nname\nasyncBackupCount\nbackupCount\nisReady\ncapacity\ninMemoryFormat\nttlSeconds\n}\nreliableTopicConfigs {\nid\nname\nisReady\nreadBatchSize\ntopicOverloadPolicy\n}\n}\n",
+		"{id,customerId,name,password,port,hazelcastVersion,isAutoScalingEnabled,isHotBackupEnabled,isHotRestartEnabled,isIpWhitelistEnabled,isTlsEnabled,productType{name,isFree},state,createdAt,startedAt,stoppedAt,progress{status,totalItemCount,completedItemCount},cloudProvider{name,region,availabilityZones},discoveryTokens{source,token},specs{totalMemory,heapMemory,nativeMemory,cpu,instanceType,instancePerZone},networking{type,cidrBlock,peering{isEnabled},privateLink{url,state}},dataStructures{mapConfigs{id,name,asyncBackupCount,backupCount,evictionPolicy,isReady,mapIndices{id,name},mapStore{className,writeBatchSize,writeCoalescing,initialLoadMode,writeDelaySeconds},maxIdleSeconds,maxSize,maxSizePolicy,ttlSeconds},jCacheConfigs{id,name,asyncBackupCount,backupCount,evictionPolicy,isReady,keyType,maxSize,maxSizePolicy,ttlSeconds,valueType},replicatedMapConfigs{id,name,isReady,asyncFillUp,inMemoryFormat},queueConfigs{id,name,asyncBackupCount,backupCount,emptyQueueTtl,isReady,maxSize},setConfigs{id,name,asyncBackupCount,backupCount,isReady,maxSize},listConfigs{id,name,asyncBackupCount,backupCount,isReady,maxSize},topicConfigs{id,name,globalOrdering,isReady},multiMapConfigs{id,name,asyncBackupCount,backupCount,isReady,valueCollectionType},ringBufferConfigs{id,name,asyncBackupCount,backupCount,isReady,capacity,inMemoryFormat,ttlSeconds},reliableTopicConfigs{id,name,isReady,readBatchSize,topicOverloadPolicy}}}",
 		selector)
 }
 
