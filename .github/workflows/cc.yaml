@@ -33,5 +33,5 @@ jobs:
       env:
         CC_TEST_REPORTER_ID: 97e095d0f15e7fff33dfde343eb6455f5fcc4c826c97ebdb20ce0715ef17f41f
       with:
-        coverageCommand: go test -coverprofile c.out -v ./...
+        coverageCommand: go test -coverprofile c.out -v ./... -run="^Test"
         coverageLocations: ${{github.workspace}}/c.out:gocov
