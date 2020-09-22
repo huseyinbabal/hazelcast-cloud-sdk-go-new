@@ -36,7 +36,7 @@ func TestAvailabilityZoneServiceOp_List(t *testing.T) {
 
 	//when
 	service := NewAvailabilityZoneService(client)
-	availabilityZones, _, _ := service.List(context.TODO(), &models.AvailabilityZoneRequest{})
+	availabilityZones, _, _ := service.List(context.TODO(), &models.AvailabilityZoneInput{})
 
 	//then
 	assert.Len(t, *availabilityZones, 3)
@@ -48,7 +48,7 @@ func TestAvailabilityZoneServiceOp_List(t *testing.T) {
 
 func ExampleAvailabilityZoneService_list() {
 	client, _, _ := New()
-	availabilityZones, _, _ := client.AvailabilityZone.List(context.Background(), &models.AvailabilityZoneRequest{
+	availabilityZones, _, _ := client.AvailabilityZone.List(context.Background(), &models.AvailabilityZoneInput{
 		CloudProvider: "aws",
 		Region:        "us-east-2",
 		InstanceType:  "m5.large",

@@ -20,24 +20,23 @@ func NewCloudProviderService(client *Client) CloudProviderService {
 
 //This function returns a list of cloud providers according to use it while creating clusters for both starter and enterprise.
 func (c cloudProviderServiceOp) List(ctx context.Context) (*[]models.CloudProvider, *Response, error) {
-	//noinspection GoPreferNilSlice
-	var cloudProviderListResponse = []models.CloudProvider{}
+	var cloudProviderList []models.CloudProvider
 	graphqlRequest := models.GraphqlRequest{
 		Name:      "cloudProviders",
 		Operation: models.Query,
 		Input:     nil,
 		Args:      nil,
-		Response:  cloudProviderListResponse,
+		Response:  cloudProviderList,
 	}
 	req, err := c.client.NewRequest(&graphqlRequest)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	resp, err := c.client.Do(ctx, req, &cloudProviderListResponse)
+	resp, err := c.client.Do(ctx, req, &cloudProviderList)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return &cloudProviderListResponse, resp, err
+	return &cloudProviderList, resp, err
 }

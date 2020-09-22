@@ -35,7 +35,7 @@ func TestRegionServiceOp_List(t *testing.T) {
 	client, _, _ := NewFromCredentials("apiKey", "apiSecret", OptionEndpoint(server.URL))
 
 	//when
-	regions, _, _ := NewRegionService(client).List(context.TODO(), &models.RegionRequest{})
+	regions, _, _ := NewRegionService(client).List(context.TODO(), &models.RegionInput{})
 
 	//then
 	assert.Len(t, *regions, 15)
@@ -43,7 +43,7 @@ func TestRegionServiceOp_List(t *testing.T) {
 
 func ExampleRegionService_list() {
 	client, _, _ := New()
-	regions, _, _ := client.Region.List(context.Background(), &models.RegionRequest{CloudProvider: "aws"})
+	regions, _, _ := client.Region.List(context.Background(), &models.RegionInput{CloudProvider: "aws"})
 	fmt.Printf("Result: %#v", regions)
 	//Output:Result: &[]models.Region{models.Region{Name:"us-east-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"us-east-2", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"us-west-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"us-west-2", IsEnabledForStarter:true, IsEnabledForEnterprise:true}, models.Region{Name:"ap-south-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"ap-northeast-2", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"ap-southeast-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"ap-southeast-2", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"ap-northeast-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"ca-central-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"eu-central-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"eu-west-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"eu-west-2", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"eu-west-3", IsEnabledForStarter:false, IsEnabledForEnterprise:true}, models.Region{Name:"sa-east-1", IsEnabledForStarter:false, IsEnabledForEnterprise:true}}
 }
