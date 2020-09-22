@@ -2,14 +2,8 @@ package hazelcastcloud
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
-	"github.com/stretchr/testify/assert"
-	"net/http"
-	"net/http/httptest"
-	"strings"
-	"testing"
 )
 
 func ExampleAvailabilityZoneService_list() {
