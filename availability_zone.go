@@ -7,7 +7,7 @@ import (
 
 //This AvailabilityZoneService is used to make operations related with availability zones
 type AvailabilityZoneService interface {
-	List(ctx context.Context, request *models.AvailabilityZoneRequest) (*[]models.AvailabilityZone, *Response, error)
+	List(ctx context.Context, input *models.AvailabilityZoneInput) (*[]models.AvailabilityZone, *Response, error)
 }
 
 type availabilityZoneServiceOp struct {
@@ -18,26 +18,25 @@ func NewAvailabilityZoneService(client *Client) AvailabilityZoneService {
 	return &availabilityZoneServiceOp{client}
 }
 
-//This function returns a list of availability zones according to request parameters
-func (c availabilityZoneServiceOp) List(ctx context.Context, request *models.AvailabilityZoneRequest) (*[]models.AvailabilityZone, *Response, error) {
-	//noinspection GoPreferNilSlice
-	var availabilityZoneListResponse = []models.AvailabilityZone{}
+//This function returns a list of availability zones according to input parameters
+func (c availabilityZoneServiceOp) List(ctx context.Context, input *models.AvailabilityZoneInput) (*[]models.AvailabilityZone, *Response, error) {
+	var availabilityZoneList []models.AvailabilityZone
 	graphqlRequest := models.GraphqlRequest{
 		Name:      "availabilityZones",
 		Operation: models.Query,
 		Input:     nil,
-		Args:      *request,
-		Response:  availabilityZoneListResponse,
+		Args:      *input,
+		Response:  availabilityZoneList,
 	}
 	req, err := c.client.NewRequest(&graphqlRequest)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	resp, err := c.client.Do(ctx, req, &availabilityZoneListResponse)
+	resp, err := c.client.Do(ctx, req, &availabilityZoneList)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return &availabilityZoneListResponse, resp, err
+	return &availabilityZoneList, resp, err
 }

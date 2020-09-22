@@ -106,11 +106,6 @@ const (
 	Failed                   State = "FAILED"
 )
 
-//The Hazelcast versions for Enterprise Hazelcast Version.
-type EnterpriseHazelcastVersion struct {
-	Version             string   `json:"version"`
-	UpgradeableVersions []string `json:"upgradeableVersions"`
-}
 
 //The input for Create Starter Cluster.
 type CreateStarterClusterInput struct {
@@ -139,7 +134,7 @@ type CreateStarterClusterInput struct {
 	//Shows if Ip whitelisting is enabled to restrict connection to the cluster or not.
 	IPWhitelist []string `json:"ipWhitelist"`
 	//Data structure configuration of the cluster.
-	DataStructure DataStructureRequest `json:"dataStructures"`
+	DataStructure DataStructureInput `json:"dataStructures"`
 }
 
 //The input for Get Cluster.
@@ -178,7 +173,7 @@ type CreateEnterpriseClusterInput struct {
 	//Shows if TLS(Transport Layer Security) is enabled while connecting to the cluster or not.
 	IsTLSEnabled bool `json:"isTlsEnabled"`
 	//Data structure configuration of the cluster.
-	DataStructure DataStructureRequest `json:"dataStructures"`
+	DataStructure DataStructureInput `json:"dataStructures"`
 }
 
 //The input for Get Enterprise Cluster Input.
@@ -187,12 +182,12 @@ type GetEnterpriseClusterInput struct {
 }
 
 //This response id of the Cluster Response
-type ClusterIdResponse struct {
+type ClusterId struct {
 	ClusterId int `json:"ClusterId"`
 }
 
 //This response for Cluster
-type ClusterResponse struct {
+type Cluster struct {
 	//Unique identifier of cluster.
 	Id string `json:"id"`
 	//Unique identifier of the cluster owner.
@@ -294,28 +289,28 @@ type DiscoveryToken struct {
 	Token  string `json:"token"`
 }
 
-//Type of all data structure request
-type DataStructureRequest struct {
+//Type of all data structure input
+type DataStructureInput struct {
 	//List of map config for the cluster. For more information, see [Map Configuration](https://docs-dedicated.cloud.hazelcast.com/docs/map-configurations)
-	MapConfigs []MapConfigRequest `json:"mapConfigs,omitempty"`
+	MapConfigs []MapConfigInput `json:"mapConfigs,omitempty"`
 	//List of JCache config for the cluster. For more information, see [JCache](https://docs-dedicated.cloud.hazelcast.com/docs/jcache)
-	JcacheConfigs []JCacheConfigRequest `json:"jcacheConfigs,omitempty"`
+	JcacheConfigs []JCacheConfigInput `json:"jcacheConfigs,omitempty"`
 	//List of Replicated Map config for the cluster. For more information, see [Replicated Map](https://docs-dedicated.cloud.hazelcast.com/docs/replicated-map)
-	ReplicatedMapConfigs []ReplicatedMapConfigRequest `json:"replicatedMapConfigs,omitempty"`
+	ReplicatedMapConfigs []ReplicatedMapConfigInput `json:"replicatedMapConfigs,omitempty"`
 	//List of Queue config for the cluster. For more information, see [Queue](https://docs-dedicated.cloud.hazelcast.com/docs/queue)
-	QueueConfigs []QueueConfigRequest `json:"queueConfigs,omitempty"`
+	QueueConfigs []QueueConfigInput `json:"queueConfigs,omitempty"`
 	//List of Set config for the cluster. For more information, see [Set](https://docs-dedicated.cloud.hazelcast.com/docs/set)
-	SetConfigs []SetConfigRequest `json:"setConfigs,omitempty"`
+	SetConfigs []SetConfigInput `json:"setConfigs,omitempty"`
 	//List of List config for the cluster. For more information, see [List Configuration](https://docs-dedicated.cloud.hazelcast.com/docs/list)
-	ListConfigs []ListConfigRequest `json:"listConfigs,omitempty"`
+	ListConfigs []ListConfigInput `json:"listConfigs,omitempty"`
 	//List of Topic config for the cluster. For more information, see [Topic](https://docs-dedicated.cloud.hazelcast.com/docs/topic)
-	TopicConfigs []TopicConfigRequest `json:"topicConfigs,omitempty"`
+	TopicConfigs []TopicConfigInput `json:"topicConfigs,omitempty"`
 	//List of Multi Map config for the cluster. For more information, see [MultiMap](https://docs-dedicated.cloud.hazelcast.com/docs/multimap)
-	MultiMapConfigs []MultiMapConfigRequest `json:"multiMapConfigs,omitempty"`
+	MultiMapConfigs []MultiMapConfigInput `json:"multiMapConfigs,omitempty"`
 	//List of Ring Buffer config for the cluster. For more information, see [RingBuffer](https://docs-dedicated.cloud.hazelcast.com/docs/ringbuffer)
-	RingBufferConfigs []RingBufferConfigRequest `json:"ringBufferConfigs,omitempty"`
+	RingBufferConfigs []RingBufferConfigInput `json:"ringBufferConfigs,omitempty"`
 	//List of Reliable Topic config for the cluster. For more information, see [ReliableTopic](https://docs-dedicated.cloud.hazelcast.com/docs/reliable-topic)
-	ReliableTopicConfigs []ReliableTopicConfigRequest `json:"reliableTopicConfigs,omitempty"`
+	ReliableTopicConfigs []ReliableTopicConfigInput `json:"reliableTopicConfigs,omitempty"`
 }
 
 //Type of all data structure response
@@ -342,8 +337,8 @@ type DataStructureResponse struct {
 	ReliableTopicConfigs []ReliableTopicConfigResponse `json:"reliableTopicConfigs"`
 }
 
-//Type of Map Data Structures Request
-type MapConfigRequest struct {
+//Type of Map Data Structures Input
+type MapConfigInput struct {
 	//Name of the map config. For more information, see [Map Name]( https://docs-dedicated.cloud.hazelcast.com/docs/map-configurations#map-name)
 	Name string `json:"name"`
 	//Number of asynchronous backups/replications. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/map-configurations#asynchronous-backup-count)
@@ -355,7 +350,7 @@ type MapConfigRequest struct {
 	//Hazelcast iterates through all the owned entries and finds the matching ones. This can be made faster by indexing the most frequently queried fields.
 	MapIndices *[]string `json:"indexes,omitempty"`
 	//Unique Identifier of the map store.
-	MapStore *MapStoreRequest `json:"mapStore,omitempty"`
+	MapStore *MapStoreInput `json:"mapStore,omitempty"`
 	//Maximum time in seconds for each entry to stay idle in the map. For more information, see [Title](https://docs-dedicated.cloud.hazelcast.com/docs/map-configurations#max-idle-seconds)
 	MaxIdleSeconds int `json:"maxIdleSeconds"`
 	//The percentage value when the eviction will start depending on the selected Max Size Policy. For more information, see [Max Size](https://docs-dedicated.cloud.hazelcast.com/docs/map-configurations#max-size)
@@ -366,8 +361,8 @@ type MapConfigRequest struct {
 	TtlSeconds int `json:"ttlSeconds"`
 }
 
-//Type of Map Store Data Structures Request
-type MapStoreRequest struct {
+//Type of Map Store Data Structures Input
+type MapStoreInput struct {
 	//Name of the class implementing MapLoader and/or MapStore. For more information, see [MapLoader and MapStore](https://docs-dedicated.cloud.hazelcast.com/v1.1/docs/maploader-and-mapstore)
 	ClassName string `json:"className"`
 	//Used to create batch chunks when writing map store. For more information, see [MapLoader and MapStore](https://docs-dedicated.cloud.hazelcast.com/v1.1/docs/maploader-and-mapstore)
@@ -381,7 +376,7 @@ type MapStoreRequest struct {
 	Properties        []MapStoreProperty `json:"properties"`
 }
 
-//Type of Map Store Property Data Structures Request
+//Type of Map Store Property Data Structures Input
 type MapStoreProperty struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
@@ -431,8 +426,8 @@ type MapConfigResponse struct {
 	TtlSeconds int `json:"ttlSeconds"`
 }
 
-//Type of List Data Structure Request
-type ListConfigRequest struct {
+//Type of List Data Structure Input
+type ListConfigInput struct {
 	//Name of the list config.
 	Name string `json:"name"`
 	//This value sets how many asynchronous backup will be. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/list#asynchronous-backup-count)
@@ -459,8 +454,8 @@ type ListConfigResponse struct {
 	MaxSize int `json:"maxSize"`
 }
 
-//Type of Set Data Structure Request
-type SetConfigRequest struct {
+//Type of Set Data Structure Input
+type SetConfigInput struct {
 	//Name of the Set config.
 	Name string `json:"name"`
 	//This value sets how many asynchronous backup will be. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/set#asynchronous-backup-count)
@@ -487,8 +482,8 @@ type SetConfigResponse struct {
 	MaxSize int `json:"maxSize"`
 }
 
-//Type of Queue Data Structure Request
-type QueueConfigRequest struct {
+//Type of Queue Data Structure Input
+type QueueConfigInput struct {
 	//Name of the Queue config.
 	Name string `json:"name"`
 	//Number of asynchronous backups. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/queue#asynchronous-backup-count)
@@ -519,8 +514,8 @@ type QueueConfigResponse struct {
 	MaxSize int `json:"maxSize"`
 }
 
-//Type of Replicated Map Data Structure Request
-type ReplicatedMapConfigRequest struct {
+//Type of Replicated Map Data Structure Input
+type ReplicatedMapConfigInput struct {
 	//Name of the Replicated Map config.
 	Name string `json:"name"`
 	//Specifies whether the Replicated Map is available for reads before the initial replication is completed. For more information, see [Asynchronous Fillup](https://docs-dedicated.cloud.hazelcast.com/docs/replicated-map#asynchronous-fillup)
@@ -543,8 +538,8 @@ type ReplicatedMapConfigResponse struct {
 	InMemoryFormat string `json:"inMemoryFormat"`
 }
 
-//Type of JCache Data Structure Request
-type JCacheConfigRequest struct {
+//Type of JCache Data Structure Input
+type JCacheConfigInput struct {
 	//Name of the JCache config.
 	Name string `json:"name"`
 	//Number of asynchronous backups/replications. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/jcache#asynchronous-backup-count)
@@ -591,8 +586,8 @@ type JCacheConfigResponse struct {
 	ValueType string `json:"valueType"`
 }
 
-//Type of Topic Data Structure Request
-type TopicConfigRequest struct {
+//Type of Topic Data Structure Input
+type TopicConfigInput struct {
 	//Name of the Topic config.
 	Name string `json:"name"`
 	//Global ordering enables, all receivers will receive all messages from all sources with the same order. For more information, see [Global Ordering]( https://docs-dedicated.cloud.hazelcast.com/docs/topic#global-ordering)
@@ -611,8 +606,8 @@ type TopicConfigResponse struct {
 	IsReady bool `json:"isReady"`
 }
 
-//Type of MultiMap Data Structure Request
-type MultiMapConfigRequest struct {
+//Type of MultiMap Data Structure Input
+type MultiMapConfigInput struct {
 	//Name of the MultiMap config.
 	Name string `json:"name"`
 	//The number of asynchronous backups. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/multimap#asynchronous-backups-count)
@@ -639,8 +634,8 @@ type MultiMapConfigResponse struct {
 	ValueCollectionType string `json:"valueCollectionType"`
 }
 
-//Type of Ring Buffer Data Structure Request
-type RingBufferConfigRequest struct {
+//Type of Ring Buffer Data Structure Input
+type RingBufferConfigInput struct {
 	//Name of the RingBuffer config.
 	Name string `json:"name"`
 	//The number of asynchronous backups. For more information, see [Asynchronous Backup Count](https://docs-dedicated.cloud.hazelcast.com/docs/ringbuffer#asynchronous-backup-count)
@@ -675,8 +670,8 @@ type RingBufferConfigResponse struct {
 	TtlSeconds int `json:"ttlSeconds"`
 }
 
-//Type of Reliable Topic Data Structure Request
-type ReliableTopicConfigRequest struct {
+//Type of Reliable Topic Data Structure Input
+type ReliableTopicConfigInput struct {
 	//Name of the ReliableTopic config.
 	Name string `json:"name"`
 	//The minimum number of messages that Reliable Topic tries to read in batches. For more information, see [Batch Size](https://docs-dedicated.cloud.hazelcast.com/docs/reliable-topic#reliable-topic-batch-size)
@@ -699,22 +694,22 @@ type ReliableTopicConfigResponse struct {
 	TopicOverloadPolicy string `json:"topicOverloadPolicy"`
 }
 
-//Type of Cluster Resume Request
-type ClusterResumeRequest struct {
+//Type of Cluster Resume Input
+type ClusterResumeInput struct {
 	ClusterId string `json:"ClusterId"`
 }
 
-//Type of Cluster Delete Request
-type ClusterDeleteRequest struct {
+//Type of Cluster Delete Input
+type ClusterDeleteInput struct {
 	ClusterId string `json:"ClusterId"`
 }
 
-//Type of Cluster Stop Request
-type ClusterStopRequest struct {
+//Type of Cluster Stop Input
+type ClusterStopInput struct {
 	ClusterId string `json:"ClusterId"`
 }
 
-//Type of Cluster List Request
-type ClusterListRequest struct {
+//Type of Cluster List Input
+type ClusterListInput struct {
 	ProductType ProductTypeName `json:"productType"`
 }

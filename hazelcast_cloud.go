@@ -6,8 +6,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/hazelcast/hazelcast-cloud-sdk-go/graphql"
 	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
-	"github.com/hazelcast/hazelcast-cloud-sdk-go/utils/to"
 	"io"
 	"io/ioutil"
 	"log"
@@ -138,8 +138,8 @@ func NewFromCredentials(apiKey string, apiSecret string, options ...Option) (*Cl
 func (c *Client) NewRequest(body *models.GraphqlRequest) (*http.Request, error) {
 	graphqlBody := GraphQLQuery{
 		OperationName: "",
-		Query:         to.Query(body.Name, body.Operation, body.Input, body.Args, body.Response),
-		Variables:     map[string]interface{}{"input": to.Variables(body.Input)},
+		Query:         graphql.Query(body.Name, body.Operation, body.Input, body.Args, body.Response),
+		Variables:     map[string]interface{}{"input": graphql.Variables(body.Input)},
 	}
 
 	buf := new(bytes.Buffer)

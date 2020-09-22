@@ -1,7 +1,7 @@
 package models
 
-//Type of Instance types request
-type InstanceTypeRequest struct {
+//Type of Instance types input
+type InstanceTypeInput struct {
 	CloudProvider string `json:"cloudProvider"`
 }
 

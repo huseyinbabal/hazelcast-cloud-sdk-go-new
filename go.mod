@@ -1,8 +1,5 @@
 module github.com/hazelcast/hazelcast-cloud-sdk-go
 
-go 1.14
+go 1.15
 
-require (
-	github.com/bxcodec/faker/v3 v3.5.0
-	github.com/stretchr/testify v1.6.1
-)
+require github.com/stretchr/testify v1.6.1
