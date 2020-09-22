@@ -12,7 +12,6 @@ import (
 	"testing"
 )
 
-
 func ExampleAvailabilityZoneService_list() {
 	client, _, _ := New()
 	availabilityZones, _, _ := client.AvailabilityZone.List(context.Background(), &models.AvailabilityZoneRequest{
