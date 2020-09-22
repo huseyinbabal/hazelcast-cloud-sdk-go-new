@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hazelcast/hazelcast-cloud-sdk-go/models"
-	"io"
 	"reflect"
 	"strings"
 	"unicode"
@@ -41,7 +40,7 @@ func responseBuilder(value interface{}) string {
 	return stringBuilder.String()
 }
 
-//This function builds response recursively and writes to writer
+//This function creates response recursively and writes to writer
 func buildResponse(t reflect.Type, stringBuilder *strings.Builder) {
 	kind := t.Kind()
 	if kind == reflect.Slice {
@@ -50,7 +49,7 @@ func buildResponse(t reflect.Type, stringBuilder *strings.Builder) {
 		fmt.Fprint(stringBuilder,"{")
 		for i := 0; i < t.NumField(); i++ {
 			if i != 0 {
-				io.WriteString(stringBuilder, ",")
+				fmt.Fprint(stringBuilder, ",")
 			}
 			f := t.Field(i)
 			fmt.Fprint(stringBuilder, camelCase(f.Name))
@@ -60,6 +59,7 @@ func buildResponse(t reflect.Type, stringBuilder *strings.Builder) {
 	}
 }
 
+//This function creates arguments for graphql query
 func argumentsBuilder(args interface{}) string {
 	valueOf := reflect.ValueOf(args)
 	var stringBuilder strings.Builder
