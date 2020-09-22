@@ -95,13 +95,13 @@ func (c starterClusterServiceOp) List(ctx context.Context) (*[]models.Cluster, *
 }
 
 //This function resume a stopped Starter Cluster
-func (c starterClusterServiceOp) Resume(ctx context.Context, request *models.ClusterResumeInput) (*models.ClusterId, *Response, error) {
+func (c starterClusterServiceOp) Resume(ctx context.Context, input *models.ClusterResumeInput) (*models.ClusterId, *Response, error) {
 	var clusterId models.ClusterId
 	graphqlRequest := models.GraphqlRequest{
 		Name:      "resumeCluster",
 		Operation: models.Mutation,
 		Input:     nil,
-		Args:      *request,
+		Args:      *input,
 		Response:  clusterId,
 	}
 	req, err := c.client.NewRequest(&graphqlRequest)
